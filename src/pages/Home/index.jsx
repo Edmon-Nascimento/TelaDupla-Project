@@ -1,29 +1,45 @@
 import { useEffect, useState } from "react"
-import{Link} from 'react-router-dom'
+import{Link, useLocation, useNavigate} from 'react-router-dom'
 import api from "../../services/api"
 import "./index.css"
-///movie/now_playing?api_key=9d848bcea34525657f73bb675fb9b9df&language=pt-BR
-
 
 function Home(){
     const [filmes, setFilmes] = useState([])
     const [loading, setLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    // sincroniza `page` com o parâmetro da rota ?page=
+    useEffect(()=>{
+        const params = new URLSearchParams(location.search)
+        const p = parseInt(params.get('page') || '1', 10) || 1
+        if(p !== page) setPage(p)
+    },[location.search])
 
     useEffect(()=>{
         async function loadFilmes() {
-            const response = await api.get("movie/now_playing",{
-                params:{
-                    api_key: "9d848bcea34525657f73bb675fb9b9df",
-                    language: "pt-br",
-                    page:1,
-                
-                }
-            })
-            setFilmes(response.data.results.slice(0,12))
-            setLoading(false)
+            setLoading(true)
+            try{
+                const response = await api.get("movie/now_playing",{
+                    params:{
+                        api_key: "9d848bcea34525657f73bb675fb9b9df",
+                        language: "pt-BR",
+                        page: page,
+                    }
+                })
+                setFilmes(response.data.results.slice(0,12))
+                setTotalPages(response.data.total_pages || 1)
+            }catch(err){
+                setFilmes([])
+                setTotalPages(1)
+            }finally{
+                setLoading(false)
+            }
         }
         loadFilmes()
-    },[])
+    },[page])
 
     if(loading){
         return(
@@ -41,10 +57,33 @@ function Home(){
                         <div className="filme" key={filme.id}>
                             <h2>{filme.title}</h2>
                             <Link to={`/filme/${filme.id}`}><img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title} /></Link>
-                            
                         </div>
                     )
                 })}
+            </div>
+
+            <div className="pagination">
+                <button
+                    className="btn-pagina"
+                    disabled={page === 1}
+                    onClick={() => {
+                        const params = new URLSearchParams(location.search)
+                        params.set('page', String(Math.max(1, page - 1)))
+                        navigate(`${location.pathname}?${params.toString()}`)
+                    }}
+                >Anterior</button>
+
+                <span className="page-info">Página {page} de {totalPages}</span>
+
+                <button
+                    className="btn-pagina"
+                    disabled={page >= totalPages}
+                    onClick={() => {
+                        const params = new URLSearchParams(location.search)
+                        params.set('page', String(Math.min(totalPages, page + 1)))
+                        navigate(`${location.pathname}?${params.toString()}`)
+                    }}
+                >Próxima</button>
             </div>
         </main>
     )

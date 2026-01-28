@@ -4,8 +4,8 @@ import "./index.css"
 function Header(){
     return(
         <header>
-            <Link to="/" className="logo">PRIMEFLIX</Link>
-            <Link to="/favoritos" className="favoritos">Meus Filmes</Link>
+            <Link to="/" className="logo">TelaDupla</Link>
+            <Link to="/favoritos" className="favoritos">Favoritos</Link>
         </header>
     )
 }
