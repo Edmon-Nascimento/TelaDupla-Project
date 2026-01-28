@@ -1,6 +1,6 @@
-# PrimeFlix
+# TelaDupa - Cinema & Streaming films
 
-**PrimeFlix** is a modern web application that allows users to explore movies using **The Movie Database (TMDB) API**.  
+**TelaDupla** is a modern web application that allows users to explore movies using **The Movie Database (TMDB) API**.  
 Users can browse the latest films, watch trailers through YouTube links, and save their favorite titles for later viewing.
 
 ## Features
