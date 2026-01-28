@@ -11,7 +11,6 @@ function Home(){
     const location = useLocation()
     const navigate = useNavigate()
 
-    // sincroniza `page` com o parâmetro da rota ?page=
     useEffect(()=>{
         const params = new URLSearchParams(location.search)
         const p = parseInt(params.get('page') || '1', 10) || 1
@@ -55,8 +54,12 @@ function Home(){
                 {filmes.map((filme)=>{
                     return(
                         <div className="filme" key={filme.id}>
-                            <h2>{filme.title}</h2>
-                            <Link to={`/filme/${filme.id}`}><img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title} /></Link>
+                            <Link to={`/filme/${filme.id}`} className="poster">
+                                <img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title} />
+                            </Link>
+                            <div className="title-wrap">
+                                <h2>{filme.title}</h2>
+                            </div>
                         </div>
                     )
                 })}

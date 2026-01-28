@@ -31,7 +31,7 @@ function Favoritos(){
                             <img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title} />
                             <div>
                                 <Link to={`/filme/${filme.id}`}><button className="botao">Detalhes</button></Link>
-                                <button className="botao" onClick={()=> excluirFilme(filme.id)}>Excluir</button>
+                                <button className="botao excluir" onClick={()=> excluirFilme(filme.id)}>Excluir</button>
                             </div>
                         </li>
                     )

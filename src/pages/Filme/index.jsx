@@ -71,15 +71,23 @@ function Filme(){
 
     return(
         <div className='filme-info'>
-            <h2>{filme.title}</h2>
-            <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title} srcset="" />
-            <h3>Sinopse</h3>
-            <p className='sinopse'>{filme.overview}</p>
-            <strong>Avaliação: {filme.vote_average}/10</strong>
-            <div>
-                <button className='botao' onClick={salvarFilme}>Salvar</button>
-                <a href={`https://youtube.com/results?search_query=${filme.title} trailer`} target='_blank' rel='exeternal'><button className='botao'>Trailer</button></a>
-            </div>
+                        <h2>{filme.title}</h2>
+                        <img src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} alt={filme.title} srcset="" />
+
+                        <div className="info">
+                            <div className="info-body">
+                                <h3>Sinopse</h3>
+                                <p className='sinopse'>{filme.overview}</p>
+                            </div>
+                            <div className="info-header">
+                                <strong className="rating">Avaliação: {filme.vote_average}/10</strong>
+                            </div>
+
+                            <div className="actions">
+                                <button className='botao' onClick={salvarFilme}>Salvar</button>
+                                <a href={`https://youtube.com/results?search_query=${filme.title} trailer`} target='_blank' rel='exeternal'><button className='botao secondary'>Trailer</button></a>
+                            </div>
+                        </div>
         </div>
     )
 }
