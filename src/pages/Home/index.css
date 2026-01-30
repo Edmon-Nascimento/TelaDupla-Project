@@ -134,8 +134,8 @@ body {
 
 @media (max-width: 480px) {
 
-  .lista-filmes { grid-template-columns: 1fr; gap: 1rem; }
-  .filme { max-width: 100%; width: 100%; }
+  .lista-filmes { grid-template-columns: 1fr; gap: 2rem; }
+  .filme { max-width: 80%; width: 80%; }
   .filme img { aspect-ratio: 2 / 3; object-fit: contain; }
   .filme h2 { font-size: 1rem; padding: 12px; }
 }
