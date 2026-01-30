@@ -130,6 +130,6 @@
 
 @media (max-width: 480px){
   .meus-favoritos ul li{
-    max-width: 100%;
+    max-width: 80%;
   }
 }
